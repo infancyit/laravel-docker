@@ -8,31 +8,41 @@ services:
       - 8000-8100:8000-8100
     restart: unless-stopped
     volumes: 
-      - ./var/www/:/var/www/
+      - ./src/:/var/www/
       - ./nginx/conf/sites-enabled:/etc/nginx/sites-enabled
       - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - php_7.3
+      - php7
+      - php5
       - db
     networks: 
       - legacy
     environment:
       SERVICE_NAME: nginx
       SERVICE_TAGS: dev
-  php_7.3:
+  php7:
     build: 
-      context: ./
-      dockerfile: ./php_7.3/Dockerfile
-      args:
-        - SOURCE_PATH=./
+      context: ./php_7.3
     restart: unless-stopped
     working_dir: /var/www/
     volumes: 
-      - ./var/www/:/var/www/
+      - ./src/:/var/www/
     networks: 
       - legacy
     environment:
-      SERVICE_NAME: php
+      SERVICE_NAME: php7.3
+      SERVICE_TAGS: dev
+  php5:
+    build: 
+      context: ./php_5.6
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes: 
+      - ./src/:/var/www/
+    networks: 
+      - legacy
+    environment:
+      SERVICE_NAME: php5.6
       SERVICE_TAGS: dev
   db:
     image: mysql:5.7.22
@@ -42,7 +52,7 @@ services:
     ports:
       - "3308:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: 
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
@@ -64,6 +74,7 @@ services:
       - legacy
     depends_on:
       - db
+
 networks: 
   legacy:
     driver: bridge
