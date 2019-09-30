@@ -5,7 +5,7 @@
 
 ## Run
 
-    `docker-compose up`
+    docker-compose up
 
 ## Container List
 Name | Conatiner | Version
@@ -16,7 +16,7 @@ Name | Conatiner | Version
 `mysql` | MySQL | 5.7.22
 `phpmyadmin` | PhpMyAdmin | N/A
 
-## Add new project to laravel
+## Add new project
 
 1. Clone/Copy the project folder inside `./src` 
     -  Run neccesary comands
@@ -31,18 +31,26 @@ Name | Conatiner | Version
     - Edit the followinng peroperty
         - `server_name` on `line 3`
         - `port` on `line 4`
+            - If you have a domain you have to select port 80
+            - If you don't have any domain you can listen to any port from 8000-8100 range
+            - You can listen multiple port for a single project also
         - `root` on `line 6`. Here you have to put the path of the `index.php`/`index.html` of the project and `./src` should be replaced by `/var/www/`
             - eg: For a traditional laravel project named `laravel_test_infancy` inside `./src`, the `root` should be `/var/www/laravel_test_infancy/public`
             - eg: For a traditional vuejs project named `vuejs_test_infancy` inside `./src`, the `root` should be `/var/www/vuejs_test_infancy/dist`
         - `fastcgi_pass` on `line 22`
             - If you need `php 5.6` put `php5:9001`
             - If you need `php 7.3` put `php7:9000`
-3. To run migration and/or necessary `artisan` command, you can:
+3. To create a database you can access `PhpMyAdmin` on port `50` by default,
+alternatively you can create database via `docker-compose exec` or manually putting database name on `docker-compose.yml` file
+4. If your project has a `.env` update it as:
+    - `DB_HOST=db`
+    - `DB_PASSWORD={as per as this repo .env file}`
+5. To run migration and/or necessary `artisan` command, you can:
     - `docker-compose exec php5 php {project_name}/artisan migrate --seed`
     - `docker-compose exec php7 php {project_name}/artisan migrate --seed`
-4. To set the folder permissions for the container you should run:
+6. To set the folder permissions for the container you should run:
     - For laravel 4.2 `docker-compose exec php5 chmod 777 -R  {project_name}/app/storage`
     - For laravel 5.\*/6.\* `docker-compose exec php7 chmod 777 -R  {project_name}/storage`
-5. And finally:
+7. And finally:
     - `docker-composer restart`
     - or `docker-compose down && docker-compose up`
