@@ -41,7 +41,7 @@ Name | Conatiner | Version
             - If you need `php 5.6` put `php5:9001`
             - If you need `php 7.3` put `php7:9000`
 3. To create a database you can access `PhpMyAdmin` on port `50` by default,
-alternatively you can create database via `docker-compose exec` or manually putting database name on `docker-compose.yml` file
+alternatively you can create database via `docker-compose exec` from the root of this repository or manually putting database name on `docker-compose.yml` file
 4. If your project has a `.env` update it as:
     - `DB_HOST=db`
     - `DB_PASSWORD={as per as this repo .env file}`
