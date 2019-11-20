@@ -14,7 +14,7 @@ Name | Conatiner | Version
 `php7` | PHP | 7.3
 `php5` | PHP | 5.6
 `mysql` | MySQL | 5.7.22
-`phpmyadmin` | PhpMyAdmin | N/A
+`phpmyadmin` | PhpMyAdmin | -
 
 ## Add new project
 
