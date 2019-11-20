@@ -52,5 +52,5 @@ alternatively you can create database via `docker-compose exec` or manually putt
     - For laravel 4.2 `docker-compose exec php5 chmod 777 -R  {project_name}/app/storage`
     - For laravel 5.\*/6.\* `docker-compose exec php7 chmod 777 -R  {project_name}/storage`
 7. And finally:
-    - `docker-composer restart`
+    - `docker-compose restart`
     - or `docker-compose down && docker-compose up`
